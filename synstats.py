@@ -4,8 +4,6 @@ from os import path
 import csv
 import os
 
-os.makedirs("vulns", exist_ok=True)
-
 s = synack()
 s.connectToPlatform()
 s.getSessionToken()
