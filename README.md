@@ -10,6 +10,11 @@ Please observe the rules for API throttling and feel free to modify the code app
 
 This library depends on the [synackAPI](https://github.com/gexpose/synackAPI) module, which is maintained by lvl0x0 and other key community members. This tool won't work unless the module is correctly installed and configured. We won't include installation instructions for the Synack API module here.
 
+This library also depends on third-party pip packages. Install these requirements as follows:
+```
+pip install -r requirements.txt
+```
+
 # Usage
 
 Simply run the command as follows:
