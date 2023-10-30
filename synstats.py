@@ -16,6 +16,7 @@ count = 0
 today = datetime.now()
 past = datetime.today() + relativedelta(months=-3)
 total_cvss = 0
+proven_cvss = 0
 
 # legends calculations
 cvss_9_or_above = 0
@@ -51,9 +52,16 @@ for v in vulns:
     d = datetime.fromtimestamp(expanded_vuln['created_at'])
     if (d > past):
         total_cvss += expanded_vuln['cvss_final']
+        if float(expanded_vuln['cvss_final']) >= 9.0:
+            proven_cvss += float(expanded_vuln['cvss_final']) * 3.0
+        elif float(expanded_vuln['cvss_final']) >= 6.0:
+            proven_cvss += float(expanded_vuln['cvss_final']) * 2.0
+        else:
+            proven_cvss += float(expanded_vuln['cvss_final'])
 
 # for Proven SRT cohort
 print("Total CVSS within the past 3 months: %.2f (%s - %s)" %(total_cvss,past.date().strftime("%x"),today.date().strftime("%x")))
+print("Proven (weighted as of Oct 2023 update) CVSS within the past 3 months: %.2f (%s - %s)" %(proven_cvss,past.date().strftime("%x"),today.date().strftime("%x")))
 # for Legends approximation
 print("Legends Unique Targets: %d/250 Vulns: %d/1500 Vulns > 9.0: %d/250" % (len(unique_targets.keys()), len(vulns), cvss_9_or_above))
 
